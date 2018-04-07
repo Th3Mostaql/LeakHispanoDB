@@ -1,28 +1,6 @@
 <?php
-//conectamos a la base de datos
-$serverName = "127.0.0.1"; //MySQl Server Addres
-$Database = "078db";
-$Uid = ""; //Database User
-$PWD = ""; // Database Password;
-
-try {
-	$conn = new PDO('mysql:host='.$serverName.';dbname='.$Database.'', $Uid, $PWD);
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	}catch (PDOException $e) {print "¡Error!: " . $e->getMessage() . "<br/>"; exit(); }
-
-//funciones de seguridad
-function cleanthis($data){
-	$iclean = filter_var($data, FILTER_SANITIZE_STRING);
-	$iclean = thisword($iclean);
-	$iclean = htmlentities($iclean, ENT_QUOTES);
-	return $iclean;
-}
-function thisword($word){
-	$badword = array("drop", "insert", "update", "delete", "alter", "index", "truncate", "sleep", "'", '"');
-	$badreplace = array("***", "***", "****", "***", "****", "***", "*****", "*****", "*", "*");
-	$clean = str_replace($badword,$badreplace,$word);
-	return $clean;
-}
+require '../misc/mysql.php';
+include '../misc/misc.php';
 session_start();
 $dhash = cleanthis($_GET['dhash']);
 $username = $_SESSION['username'];

@@ -5,34 +5,9 @@ ini_set('display_errors', 1);
 $pagetype = 'userpage';
 $title = 'File Info';
 require '../login/misc/pagehead.php';
+include '../misc/misc.php';
 $uid = $_SESSION['uid'];
 $usr = profileData::pullAllUserInfo($uid);
-
-//funciones de seguridad
-function cleanthis($data){
-	$iclean = filter_var($data, FILTER_SANITIZE_STRING);
-	$iclean = thisword($iclean);
-	$iclean = htmlentities($iclean, ENT_QUOTES);
-	return $iclean;
-}
-function thisword($word){
-	$badword = array("drop", "insert", "update", "delete", "alter", "index", "truncate", "sleep", "'", '"');
-	$badreplace = array("***", "***", "****", "***", "****", "***", "*****", "*****", "*", "*");
-	$clean = str_replace($badword,$badreplace,$word);
-	return $clean;
-}
-function formatSize ($bytes) {
-	$units = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-
-	$bytes = max($bytes, 0);
-	$pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-	$pow = min($pow, count($units) - 1);
-
-	$bytes /= pow(1024, $pow);
-
-	return ceil($bytes) . ' ' . $units[$pow];
-}
-
 $chash = cleanthis($_GET['chash']);
 if(!$chash){header("Location: /"); die();}
 
