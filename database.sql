@@ -130,6 +130,7 @@ CREATE TABLE `members` (
   `username` varchar(65) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(65) NOT NULL DEFAULT '',
+  `banned` int(11) NOT NULL DEFAULT '0',
   `coins` int(11) NOT NULL DEFAULT '0',
   `shared` int(11) NOT NULL DEFAULT '0',
   `verified` tinyint(1) NOT NULL DEFAULT '0',
