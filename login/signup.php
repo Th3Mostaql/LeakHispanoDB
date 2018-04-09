@@ -2,7 +2,10 @@
 if ((isset($_SESSION)) && array_key_exists('username', $_SESSION)) {
     session_destroy();
 }
+if(isset($_GET['code']))
 $invite = $_GET['code'];
+else
+$invite = '';
 $pagetype = 'loginpage';
 $title = 'Sign Up';
 require 'misc/pagehead.php';
