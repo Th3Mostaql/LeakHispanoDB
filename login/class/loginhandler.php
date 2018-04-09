@@ -55,9 +55,14 @@ class LoginHandler extends AppConfig
              //If max attempts not exceeded, continue
             // Checks password entered against db password hash
             if (PasswordCrypt::checkPw($mypassword, $result['password']) && $result['verified'] == '1') {
-
+		$stmt = $this->conn->prepare("SELECT banned FROM `members` WHERE username = :myusername");
+        	$stmt->bindParam(':myusername', $myusername);
+        	$stmt->execute();
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($result['banned'] == 0){
                 //Success! Register $myusername, $mypassword and return "true"
                 $success = 'true';
+		}
 
                 session_start();
 
@@ -76,7 +81,9 @@ class LoginHandler extends AppConfig
                     //Creates cookie
                     include_once $this->base_dir."/login/ajax/cookiecreate.php";
                 }
-
+				   }else{
+					    $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Your account has been suspended.</div>";
+				   }
             } elseif (PasswordCrypt::checkPw($mypassword, $result['password']) && $result['verified'] == '0') {
 
                 //Account not yet verified
