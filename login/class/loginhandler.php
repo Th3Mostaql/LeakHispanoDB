@@ -56,12 +56,13 @@ class LoginHandler extends AppConfig
             // Checks password entered against db password hash
             if (PasswordCrypt::checkPw($mypassword, $result['password']) && $result['verified'] == '1') {
 		$stmt = $this->conn->prepare("SELECT banned FROM `members` WHERE username = :myusername");
-        $stmt->bindParam(':myusername', $myusername);
-        $stmt->execute();
+        	$stmt->bindParam(':myusername', $myusername);
+        	$stmt->execute();
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-                   if(result == 0){
+                if($result['banned'] == 0){
                 //Success! Register $myusername, $mypassword and return "true"
                 $success = 'true';
+		}
 
                 session_start();
 
