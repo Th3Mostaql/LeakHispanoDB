@@ -6,6 +6,8 @@ $pagetype = 'userpage';
 $title = 'File Info';
 require '../login/misc/pagehead.php';
 include '../misc/misc.php';
+if(!(isset($_SESSION['uid']) && isset($_GET['chash'])))
+	{die();}
 $uid = $_SESSION['uid'];
 $usr = profileData::pullAllUserInfo($uid);
 $chash = cleanthis($_GET['chash']);
@@ -45,7 +47,7 @@ if (file_exists("/var/www/078db.cf/user/avatars/".$row['userid'].".jpg")) {
 			<img src="<?php echo $urlavatar;?>" height="100px" style="padding-left: 5%; padding-right: 5%"><a style="color: #c11139; font-weight: bold; font-size: 50px" href="vote.php?fid=<?php echo $row['id'];?>&vote=2" target="_blank"><i class='far fa-thumbs-down'></i> <?php echo $row['downvotes']; ?></a><br>
 			<span style="color: #6991f7; text-shadow: 0.5px 0.5px 5px #6991f7; font-size: 20px"><?php echo $row['username']; ?></span><br><br>
 
-			<button style="color: black;" type="submit" onclick="window.open('download.php?dhash=<?php echo $row['hash'];?>')">DOWNLOAD COST 10 COINS</button>
+			<button class="btn btn-success" type="submit" onclick="window.open('download.php?dhash=<?php echo $row['hash'];?>')">DOWNLOAD (10 Coins)</button>
 			
 			
 		</form>
