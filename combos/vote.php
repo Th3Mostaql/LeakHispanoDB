@@ -2,6 +2,8 @@
 require '../misc/mysql.php';
 include '../misc/misc.php';
 session_start();
+if(!(isset($_SESSION['username']) || isset($_GET['fid']) || isset($_GET['vote'])))
+	{die();}
 $fid = cleanthis($_GET['fid']);
 $vote = cleanthis($_GET['vote']);
 $username = $_SESSION['username'];
@@ -14,6 +16,9 @@ $stmt = $conn->prepare("SELECT * FROM `files` WHERE `id` = '$fid'");
 $stmt->execute();
 $row = $stmt->fetch();
 if(!$row['id']){die('Tira pa tu casa pesao');}
+if($row['username'] == $username) {die('You cannot vote yourself.');}
+$downloaders = explode(",", substr($row['downloaders'], 0, -1));
+if (!in_array($username, $downloaders)) {die('You cannot vote a combo you didn\'t download!');}
 unset($stmt);
 
 $stmt = $conn->prepare("SELECT * FROM `votes` WHERE `fileid` = '$fid' AND `username` = '$username'");
