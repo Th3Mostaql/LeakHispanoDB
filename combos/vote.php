@@ -2,7 +2,7 @@
 require '../misc/mysql.php';
 include '../misc/misc.php';
 session_start();
-if(!(isset($_SESSION['username']) || isset($_GET['fid']) || isset($_GET['vote'])))
+if(!(isset($_SESSION['username']) && isset($_GET['fid']) && isset($_GET['vote'])))
 	{die();}
 $fid = cleanthis($_GET['fid']);
 $vote = cleanthis($_GET['vote']);

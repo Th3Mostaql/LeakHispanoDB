@@ -2,7 +2,7 @@
 require '../misc/mysql.php';
 include '../misc/misc.php';
 session_start();
-if(!(isset($_SESSION['username']) || isset($_GET['dhash'])))
+if(!(isset($_SESSION['username']) && isset($_GET['dhash'])))
 	{die();}
 $dhash = cleanthis($_GET['dhash']);
 $username = $_SESSION['username'];

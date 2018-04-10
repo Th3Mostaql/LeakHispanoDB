@@ -6,7 +6,7 @@ $pagetype = 'userpage';
 $title = 'File Info';
 require '../login/misc/pagehead.php';
 include '../misc/misc.php';
-if(!(isset($_SESSION['uid']) || isset($_GET['chash'])))
+if(!(isset($_SESSION['uid']) && isset($_GET['chash'])))
 	{die();}
 $uid = $_SESSION['uid'];
 $usr = profileData::pullAllUserInfo($uid);
