@@ -362,7 +362,7 @@ https://078db.cf/combos/combo.php?chash='.$dhash);
 						$nepesu = '';
 						$fechayhora = date('Y-m-d H:i:s', $row['date']);
 
-                        echo "<li><a class='uploaded_file' href='".$settings['url']."combos/combo.php?chash=".$row['hash']."' style='color: #6991f7;text-shadow: 0.5px 0.5px 5px #6991f7;'>".$row['name']." | ".$row['upvotes']." <i class='far fa-thumbs-up'></i> ".$row['downvotes']." <i class='far fa-thumbs-down'></i><span> ".$row['username']." | ".$row['downloads']." <i class='fas fa-download'></i> | ".$file_size."  | ".$fechayhora."</span></a>";
+                        echo "<li><a class='uploaded_file' href='".$settings['url']."combos/combo.php?chash=".$row['hash']."' style='color: #6991f7;text-shadow: 0.5px 0.5px 5px #6991f7;'>".$row['name']." | ".$row['upvotes']." <i class='far fa-thumbs-up'></i> ".$row['downvotes']." <i class='far fa-thumbs-down'></i><span><img src='https://078db.cf/user/avatars/".$row['userid'].".jpg' width='20px' height='20px'> ".$row['username']." | ".$row['downloads']." <i class='fas fa-download'></i> | ".$file_size."  | ".$fechayhora."</span></a>";
 
 						if ($file_owner) {
 								if ($settings['allow_deletion'])
